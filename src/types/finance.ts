@@ -35,6 +35,6 @@ export interface CreateTransactionDto {
     amount: number;
     timestamp: string;
     action: Action;
-    categoryID: number;
-    familyID?: number;
+    categoryId: number;
+    familyId?: number;
 }

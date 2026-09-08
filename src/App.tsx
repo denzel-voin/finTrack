@@ -11,7 +11,7 @@ export function App() {
 
 
   return (
-    <main className="max-w-2xl mx-auto p-6 space-y-4">
+    <main className="p-6 space-y-4">
       <MetricCards metrics={metrics} isPending={isPending} />
     </main>
   );

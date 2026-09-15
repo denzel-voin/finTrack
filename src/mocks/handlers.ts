@@ -51,7 +51,7 @@ const transactions: Transaction[] = [
     {
         id: 1,
         timestamp: new Date().toISOString(),
-        amount: 1500,
+        amount: 1400,
         action: 'EXPENSE',
         category: {
             id: 4,

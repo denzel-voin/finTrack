@@ -1,6 +1,7 @@
 import type {Transaction} from "@/types/finance.ts";
 import {Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow} from "@/components/ui/table.tsx";
 import {SkeletonTable} from "@/components/ui/SkeletonTable.tsx";
+import {financeMetrics} from "@/utils/finance.ts";
 
 interface TransactionTableProps {
     transactions?: Transaction[];
@@ -13,26 +14,26 @@ export const TransactionTable = ({transactions, isPending}: TransactionTableProp
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead className='text-zinc-300'>дата</TableHead>
-                            <TableHead className='text-zinc-300'>категория</TableHead>
-                            <TableHead className='text-zinc-300'>участник</TableHead>
-                            <TableHead className="text-right text-zinc-300">сумма</TableHead>
+                            <TableHead className='text-zinc-300 w-[100px]'>Дата</TableHead>
+                            <TableHead className='text-zinc-300 text-center'>Категория</TableHead>
+                            <TableHead className='text-zinc-300 text-center'>Участник</TableHead>
+                            <TableHead className="text-right text-zinc-300">Стоимость</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {transactions?.map(transaction => (
                             <TableRow key={transaction.id}>
-                                <TableCell>{transaction.timestamp}</TableCell>
+                                <TableCell>{new Date(transaction.timestamp).toLocaleDateString('ru')}</TableCell>
                                 <TableCell>{transaction.category.name}</TableCell>
                                 <TableCell>{transaction.owner.name}</TableCell>
-                                <TableCell>{transaction.amount}</TableCell>
+                                <TableCell  className="text-right">{transaction.amount.toLocaleString('ru')}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
-                    <TableFooter>
+                    <TableFooter className='bg-transparent'>
                         <TableRow>
-                            <TableCell colSpan={3}>Всего</TableCell>
-                            <TableCell className="text-right">$2,500.00</TableCell>
+                            <TableCell colSpan={3} className='text-left'>Всего</TableCell>
+                            <TableCell className="text-right">{transactions ? financeMetrics(transactions).balance.toLocaleString('ru') : 0 }</TableCell>
                         </TableRow>
                     </TableFooter>
                 </Table>

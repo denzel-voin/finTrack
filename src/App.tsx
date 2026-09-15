@@ -7,12 +7,12 @@ export function App() {
   const { data: transactions, isPending, error } = useTransactions();
 
   const metrics = financeMetrics(transactions || []);
-  console.log('Состояние запроса:', { isPending, transactionsCount: transactions?.length, transactions });
 
   return (
     <main className="p-6 space-y-4">
       <MetricCards metrics={metrics} isPending={isPending} />
       <TransactionTable transactions={transactions} />
+        {error && (<h2>Ошибка загрузки: {error.message}</h2>)}
     </main>
   );
 }

@@ -9,7 +9,6 @@ interface MetricCardsProps {
 }
 
 export const MetricCards = ({ metrics, isPending }: MetricCardsProps) => {
-
   return (
     <div className="grid md:grid-cols-3 gap-4 grid-cols-1">
       {isPending ? <Skeleton className="rounded-xl" /> :

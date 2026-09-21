@@ -26,7 +26,7 @@ export interface Transaction {
     timestamp: string;
     amount: number;
     action: Action;
-    category: Category;
+    category?: Category;
     owner: UserPublic;
     family: FamilyGroup | null;
 }

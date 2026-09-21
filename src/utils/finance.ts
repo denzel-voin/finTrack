@@ -14,5 +14,6 @@ export const financeMetrics = (transactions: Transaction[]): FinanceMetrics => {
 }
 
 export const formatCurrency = (value: number) => {
-    return value.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 });
+    const isFractional = value % 1 !== 0;
+    return value.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: isFractional ? 2 : 0 });
 } 

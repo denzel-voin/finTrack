@@ -49,7 +49,7 @@ export const familyGroups: FamilyGroup[] = [
 export const transactions: Transaction[] = [
     {
         id: 1,
-        timestamp: new Date().toISOString(),
+        timestamp: new Date(Date.now() - 86400000).toISOString(),
         amount: 1400,
         action: 'EXPENSE',
         category: {

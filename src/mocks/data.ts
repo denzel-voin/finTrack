@@ -74,7 +74,7 @@ export const transactions: Transaction[] = [
     {
         id: 2,
         timestamp: new Date().toISOString(),
-        amount: 1500,
+        amount: 1200,
         action: 'INCOME',
         category: {
             id: 5,

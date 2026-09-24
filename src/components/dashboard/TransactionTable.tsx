@@ -34,13 +34,19 @@ export const TransactionTable = ({ transactions, isPending }: TransactionTablePr
                             </TableRow>
                         ))}
                     </TableBody>
-                ) :
-                    <p>Операций пока не было</p>
-                }
+                ) : (
+                    <TableBody>
+                        <TableRow>
+                            <TableCell colSpan={4} className="text-center py-6 text-muted-foreground">
+                                Операций пока не было
+                            </TableCell>
+                        </TableRow>
+                    </TableBody>
+                )}
                 <TableFooter className='bg-transparent'>
                     <TableRow className='hover:bg-muted/20'>
                         <TableCell colSpan={3} className='text-left'>Всего</TableCell>
-                        <TableCell className={`text-right text-xl font-bold ${isPositive? 'text-emerald-400' : 'text-rose-600'}`}>{formatCurrency(totalAmount)}</TableCell>
+                        <TableCell className={`text-right text-xl font-bold ${isPositive ? 'text-emerald-400' : 'text-rose-600'}`}>{formatCurrency(totalAmount)}</TableCell>
                     </TableRow>
                 </TableFooter>
             </Table>

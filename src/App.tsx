@@ -1,3 +1,4 @@
+import { CreateTransactionDialog } from './components/dashboard/CreateTransactionDialog';
 import { MetricCards } from './components/dashboard/MetricCards';
 import { useTransactions } from './hooks/useTransactions';
 import { financeMetrics } from './utils/finance';
@@ -12,6 +13,7 @@ export function App() {
     <main className="p-6 space-y-4">
       <MetricCards metrics={metrics} isPending={isPending} />
       <TransactionTable transactions={transactions} />
+      <CreateTransactionDialog />
       {error && (<h2>Ошибка загрузки: {error.message}</h2>)}
     </main>
   );

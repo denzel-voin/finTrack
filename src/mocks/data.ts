@@ -3,23 +3,33 @@ import type { Category, Transaction, UserPublic, FamilyGroup } from '@/types/fin
 export const categories: Category[] = [
     {
         id: 1,
-        name: "Еда"
+        name: "Еда",
+        action: "EXPENSE"
     },
     {
         id: 2,
         name: "Одежда",
+        action: "EXPENSE"
     },
     {
         id: 3,
-        name: "Подписки"
+        name: "Подписки",
+        action: "EXPENSE"
     },
     {
         id: 4,
-        name: "Барбер"
+        name: "Барбер",
+        action: "EXPENSE"
     },
     {
         id: 5,
-        name: "Зарплата"
+        name: "Зарплата",
+        action: "INCOME"
+    },
+    {
+        id: 6,
+        name: "Кэшбек",
+        action: "INCOME"
     }
 ];
 
@@ -54,7 +64,8 @@ export const transactions: Transaction[] = [
         action: 'EXPENSE',
         category: {
             id: 4,
-            name: "Барбер"
+            name: "Барбер",
+            action: "EXPENSE"
         },
         owner: currentUser,
         family: {
@@ -74,11 +85,12 @@ export const transactions: Transaction[] = [
     {
         id: 2,
         timestamp: new Date().toISOString(),
-        amount: 1200,
+        amount: 1500,
         action: 'INCOME',
         category: {
             id: 5,
-            name: "Зарплата"
+            name: "Зарплата",
+            action: "INCOME"
         },
         owner: {
             id: 2,

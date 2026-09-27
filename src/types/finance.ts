@@ -3,6 +3,7 @@ export type Action = 'INCOME' | 'EXPENSE';
 export interface Category {
     id: number;
     name: string;
+    action: Action;
 }
 
 export interface Account {

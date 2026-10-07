@@ -9,7 +9,7 @@ import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
 import { TrendingUpIcon, TrendingDown } from 'lucide-react';
 import { Button } from "../ui/button";
 import { useCategories } from "@/hooks/useCategories";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { useCreateTransaction } from "@/hooks/useTransactions";
 
 interface TransactionFormProps {

@@ -14,12 +14,6 @@ export const CreateTransactionDialog = () => {
                 </Button>
             } />
             <DialogContent className="sm:max-w-[425px]">
-                <DialogHeader>
-                    <DialogTitle>Добавить транзакцию</DialogTitle>
-                    <DialogDescription>
-                        Введите данные транзакции
-                    </DialogDescription>
-                </DialogHeader>
                 <TransactionForm onSuccess={() => setIsOpen(false)} />
             </DialogContent>
         </Dialog>

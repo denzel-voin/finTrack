@@ -5,14 +5,16 @@ import { financeMetrics, formatCurrency } from "@/utils/finance.ts";
 import { TrendingUpIcon, TrendingDown } from 'lucide-react';
 
 interface TransactionTableProps {
-    transactions?: Transaction[];
-    isPending?: boolean;
+    transactions: Transaction[];
+    isPending: boolean;
+    error: Error | null;
 }
 
-export const TransactionTable = ({ transactions, isPending }: TransactionTableProps) => {
+export const TransactionTable = ({ transactions, isPending, error }: TransactionTableProps) => {
     const totalAmount = transactions ? financeMetrics(transactions).balance : 0;
     const isPositive = totalAmount >= 0;
     return (
+        error ? <p>{error.message}</p> :
         isPending ? <SkeletonTable /> :
             <Table>
                 <TableHeader>
@@ -23,7 +25,7 @@ export const TransactionTable = ({ transactions, isPending }: TransactionTablePr
                         <TableHead className="text-right text-muted-foreground">Стоимость</TableHead>
                     </TableRow>
                 </TableHeader>
-                {transactions ? (
+                {transactions.length > 0 ? (
                     <TableBody>
                         {transactions?.map(transaction => (
                             <TableRow key={transaction.id} className='text-left hover:bg-muted/20'>

@@ -5,14 +5,14 @@ import { financeMetrics } from './utils/finance';
 import { TransactionTable } from "@/components/dashboard/TransactionTable";
 
 export function App() {
-  const { data: transactions, isPending, error } = useTransactions();
+  const { data: transactions = [], isPending, error } = useTransactions();
 
   const metrics = financeMetrics(transactions || []);
 
   return (
     <main className="p-6 space-y-4">
       <MetricCards metrics={metrics} isPending={isPending} />
-      <TransactionTable transactions={transactions} />
+      <TransactionTable transactions={transactions} isPending={isPending} error={error} />
       <CreateTransactionDialog />
       {error && (<h2>Ошибка загрузки: {error.message}</h2>)}
     </main>

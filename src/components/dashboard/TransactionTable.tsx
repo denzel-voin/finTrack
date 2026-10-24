@@ -13,7 +13,6 @@ import { TrendingUpIcon, TrendingDown } from "lucide-react";
 
 interface TransactionTableProps {
   transactions: Transaction[];
-  error: Error | null;
 }
 
 export const TransactionTable = ({ transactions }: TransactionTableProps) => {

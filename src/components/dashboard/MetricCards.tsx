@@ -4,63 +4,49 @@ import {
   type FinanceMetrics,
 } from "@/utils/finance";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 import { TrendingUpIcon, TrendingDown, Wallet } from "lucide-react";
 import type { Transaction } from "@/types/finance";
 
 interface MetricCardsProps {
   transactions: Transaction[];
-  isPending: boolean;
 }
 
-export const MetricCards = ({ transactions, isPending }: MetricCardsProps) => {
+export const MetricCards = ({ transactions }: MetricCardsProps) => {
   const metrics: FinanceMetrics = financeMetrics(transactions);
   return (
     <div className="grid md:grid-cols-3 gap-4 grid-cols-1">
-      {isPending ? (
-        <Skeleton className="rounded-xl" />
-      ) : (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-slate-800 flex justify-center gap-1">
-              Доходы <TrendingUpIcon className="text-emerald-500" />
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="text-2xl font-bold text-emerald-600">
-            {formatCurrency(metrics.income)}
-          </CardContent>
-        </Card>
-      )}
-      {isPending ? (
-        <Skeleton className="rounded-xl" />
-      ) : (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-slate-800 flex justify-center gap-1">
-              Расходы <TrendingDown className="text-rose-400" />
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="text-2xl font-bold text-rose-600">
-            {formatCurrency(metrics.expense)}
-          </CardContent>
-        </Card>
-      )}
-      {isPending ? (
-        <Skeleton className="rounded-xl" />
-      ) : (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-slate-800 flex justify-center gap-1">
-              Баланс <Wallet />
-            </CardTitle>
-          </CardHeader>
-          <CardContent
-            className={`text-2xl font-bold text-mauve-600 ${metrics.balance > 0 ? "text-emerald-600" : metrics.balance < 0 ? "text-rose-600" : ""}`}
-          >
-            {formatCurrency(metrics.balance)}
-          </CardContent>
-        </Card>
-      )}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-slate-800 flex justify-center gap-1">
+            Доходы <TrendingUpIcon className="text-emerald-500" />
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="text-2xl font-bold text-emerald-600">
+          {formatCurrency(metrics.income)}
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-slate-800 flex justify-center gap-1">
+            Расходы <TrendingDown className="text-rose-400" />
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="text-2xl font-bold text-rose-600">
+          {formatCurrency(metrics.expense)}
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-slate-800 flex justify-center gap-1">
+            Баланс <Wallet />
+          </CardTitle>
+        </CardHeader>
+        <CardContent
+          className={`text-2xl font-bold text-mauve-600 ${metrics.balance > 0 ? "text-emerald-600" : metrics.balance < 0 ? "text-rose-600" : ""}`}
+        >
+          {formatCurrency(metrics.balance)}
+        </CardContent>
+      </Card>
     </div>
   );
 };

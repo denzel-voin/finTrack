@@ -9,11 +9,17 @@ export function App() {
 
   return (
     <main className="p-6 space-y-4">
-      <MetricCards transactions={transactions} isPending={isPending} />
+      {transactions ? (
+        <MetricCards transactions={transactions} isPending={isPending} />
+      ) : (
+        error && <h2>Ошибка загрузки: {error.message}</h2>
+      )}
       {isPending ? (
+        <SkeletonTable />
+      ) : transactions ? (
         <TransactionTable transactions={transactions} />
       ) : (
-        <SkeletonTable />
+        error && <h2>Ошибка загрузки: {error.message}</h2>
       )}
       <CreateTransactionDialog />
       {error && <h2>Ошибка загрузки: {error.message}</h2>}

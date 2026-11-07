@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/table.tsx";
 import { financeMetrics, formatCurrency } from "@/utils/finance.ts";
 import { TrendingUpIcon, TrendingDown } from "lucide-react";
+import { DeleteTransaction } from "./DeleteTransaction";
 
 interface TransactionTableProps {
   transactions: Transaction[];
@@ -40,7 +41,7 @@ export const TransactionTable = ({ transactions }: TransactionTableProps) => {
             {transactions.map((transaction) => (
               <TableRow
                 key={transaction.id}
-                className="text-left hover:bg-muted/20"
+                className=" text-left hover:bg-muted/20"
               >
                 <TableCell>
                   {new Date(transaction.timestamp).toLocaleDateString("ru")}
@@ -54,6 +55,7 @@ export const TransactionTable = ({ transactions }: TransactionTableProps) => {
                     <TrendingDown className="inline-block text-rose-400 ml-1 mr-2" />
                   )}
                   {formatCurrency(transaction.amount)}
+                  <DeleteTransaction transaction={transaction} />
                 </TableCell>
               </TableRow>
             ))}

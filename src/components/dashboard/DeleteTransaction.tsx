@@ -12,6 +12,8 @@ import { Button } from "../ui/button";
 import { useState } from "react";
 import type { Transaction } from "@/types/finance";
 import { formatCurrency } from "@/utils/finance";
+import { useDeleteTransaction } from "@/hooks/useTransactions";
+import { Spinner } from "../ui/spinner";
 
 interface DeleteTransactionProps {
   transaction: Transaction;
@@ -19,11 +21,27 @@ interface DeleteTransactionProps {
 
 export const DeleteTransaction = ({ transaction }: DeleteTransactionProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const {
+    mutateAsync: deleteTransaction,
+    isPending,
+    isError,
+    error,
+  } = useDeleteTransaction();
+
+  if (isError) return <p>{error.message}</p>;
+
+  const onDelete = async (id: number) => {
+    await deleteTransaction(id);
+    setIsOpen(false);
+  };
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger
         render={
-          <Button className="text-rose-800 cursor-pointer md:max-w-1 max-w-0.5 bg-transparent">
+          <Button
+            aria-label="delete"
+            className="text-rose-800 cursor-pointer md:max-w-1 max-w-0.5 bg-transparent"
+          >
             <X />
           </Button>
         }
@@ -49,10 +67,12 @@ export const DeleteTransaction = ({ transaction }: DeleteTransactionProps) => {
         </DialogDescription>
         <DialogFooter className="bg-black">
           <Button
-            className="text-rose-600 cursor-pointer"
-            onClick={() => setIsOpen(false)}
+            variant="destructive"
+            className="cursor-pointer"
+            disabled={isPending}
+            onClick={() => onDelete(transaction.id)}
           >
-            Да, удалить
+            {isPending ? <Spinner data-icon="inline-start" /> : "Да, удалить"}
           </Button>
           <Button className="cursor-pointer" onClick={() => setIsOpen(false)}>
             Нет

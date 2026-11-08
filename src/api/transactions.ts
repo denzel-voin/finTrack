@@ -27,3 +27,9 @@ export async function createTransaction(
 
   return res.json();
 }
+
+export async function deleteTransaction(id: number): Promise<void> {
+  const res = await fetch(`/api/transactions/${id}`, { method: "DELETE" });
+
+  if (!res.ok) throw new Error(`Ошибка удаления транзакции: ${res.status}`);
+}

@@ -1,4 +1,4 @@
-import { TrendingDown, TrendingUpIcon, X } from "lucide-react";
+import { AlertCircleIcon, TrendingDown, TrendingUpIcon, X } from "lucide-react";
 import {
   Dialog,
   DialogTrigger,
@@ -9,11 +9,12 @@ import {
   DialogFooter,
 } from "../ui/dialog";
 import { Button } from "../ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Transaction } from "@/types/finance";
 import { formatCurrency } from "@/utils/finance";
 import { useDeleteTransaction } from "@/hooks/useTransactions";
 import { Spinner } from "../ui/spinner";
+import { Alert, AlertTitle, AlertDescription } from "../ui/alert";
 
 interface DeleteTransactionProps {
   transaction: Transaction;
@@ -26,20 +27,30 @@ export const DeleteTransaction = ({ transaction }: DeleteTransactionProps) => {
     isPending,
     isError,
     error,
+    reset,
   } = useDeleteTransaction();
 
-  if (isError) return <p>{error.message}</p>;
-
   const onDelete = async (id: number) => {
-    await deleteTransaction(id);
-    setIsOpen(false);
+    try {
+      await deleteTransaction(id);
+      setIsOpen(false);
+    } catch (err) {
+      console.log(err);
+    }
   };
+
+  const onOpenChange = (open: boolean) => {
+    if (open) reset();
+    setIsOpen(open);
+  };
+
+  useEffect(() => reset(), [reset]);
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogTrigger
         render={
           <Button
-            aria-label="delete"
+            aria-label="Удалить транзакцию"
             className="text-rose-800 cursor-pointer md:max-w-1 max-w-0.5 bg-transparent"
           >
             <X />
@@ -65,6 +76,13 @@ export const DeleteTransaction = ({ transaction }: DeleteTransactionProps) => {
             )}
           </span>
         </DialogDescription>
+        {isError && (
+          <Alert variant="destructive" className="bg-black">
+            <AlertCircleIcon />
+            <AlertTitle>Ошибка удаления</AlertTitle>
+            <AlertDescription>{error.message}</AlertDescription>
+          </Alert>
+        )}
         <DialogFooter className="bg-black">
           <Button
             variant="destructive"
